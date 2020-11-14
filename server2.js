@@ -15,7 +15,6 @@ const schema = buildSchema(`
         addCourse(input: AddCourseInput):[Course]
     }
     input AddCourseInput {
-        id: Int!
         title: String!
         author: String!
         description: String!
@@ -89,14 +88,14 @@ const updateCourseTopic = function({id, topic}) {
     return coursesData.filter(course => course.id === id) [0];
 }
 
-const addCourse = function(args) {
+const addCourse = function({input}) {
     const newCourse = {
-        id: args.input.id,
-        title: args.input.title,
-        author: args.input.author,
-        description: args.input.description,
-        topic: args.input.topic,
-        url: args.input.url
+        id: coursesData.length,
+        title: input.title,
+        author: input.author,
+        description: input.description,
+        topic: input.topic,
+        url: input.url
     };
     coursesData.push(newCourse);
     return coursesData;
